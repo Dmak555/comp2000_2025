@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -17,8 +16,12 @@ public class Cell extends Rectangle {
     row = inRow;
   }
 
-  public void setTerrain(Terrain t) {this.terrain = t;}
-  public Terrain getTerrain() {return terrain;}
+  public void setTerrain(Terrain t){
+    this.terrain = t;
+  }
+  public Terrain getTerrain(){
+    return terrain;
+  }
 
   public void paint(Graphics g,Point mousePos){
   g.setColor(terrain.fill);
