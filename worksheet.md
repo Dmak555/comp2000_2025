@@ -158,3 +158,87 @@ public Optional<Cell> cellAtPoint(Point p)
 🤔 How about we improve the `cellAtColRow` method now we know about optional containers?
 
 🤔 Now that we have `cellAtPoint`, lets use it.  Grow the app window to 1024x720 so we have some clear space to the right of the grid.  In this space, put the details of whatever cell we are hoving over.  For example, you might put the type of cell that is located there, and what it's elevation is.  There are many ways to do this, but one good way is to call `cellAtPoint` while painting the stage and use the resulting cell information.
+
+## Week 6 Application Exercise
+
+Your team's task this week is to explore the use of _exceptions_.  Are there places is the existing code base that could be improved by adding exception handling code, or by creating a custom exception class?  You should ensure your team's code is all up to date so you have the most to work with.  You can take any approach you want and use exception handling and/or custom exception classes for any part of the code you deem appropriate.  Keep in mind what exceptions are intended for as we will be asking ourselved which teams had the most useful exception handling.
+
+We have provided a possible approach via Tasks 13, and 14 if your team wants some direction to head in.
+
+### Task 13
+
+We've added a new class `StageReader` which is used by `Main` to prepare the playing area.  A file is kept in a "data" folder called "stage1.rvb". That file has one line for each configuration item.  We begin with just the character locations.  The format is "ColRow=Actor", where 'Col' is a letter, 'Row' is a one or two digit number, and 'Actor' is a String.
+
+So far `StageReader` simply reads the lines into a `List` of `String` with one line per `List` element.  You should complete the functionality so that this class can read the contents of `data/stage1.rvb` and place an `Actor` at each specified `Grid` location.
+
+Think about the kinds of situations that could lead to an error condition and deal with each using an `Exception`.  This could be simply adding `try/catch` blocks, or require you to implement a custom `Exception` class.
+
+### Task 14
+
+At the moment, the file reading code will thrown an exception if it fails to read a file.  You should change this code so that _it handles a thrown an `IOException`_.  This means you will have to think hard about what to do on a failed file read.
+
+## Week 7 Application Exercise
+
+This week's exercise is one of code comprehension.  We have made changes to the codebase to implement turn-based strategy gameplay in the spirit of famicom-wars.  The first step was to put in the turns!  We've added the following aspects:
+  * Characters on different teams (Humans vs Bots)
+  * A way for the player to move their characters
+  * A way for the computer to move the bot characters.
+  * A simple animation of the bot players to add some dynamism to the game.
+
+### Task 15
+
+Go through the updates to understand what we have done.  I.e. your job for this task is to understand the code we have added rather than adding any code of your own.  I strongly encourage you to explore this commit on github or in VSCode where you can see exactly what lines were added/deleted/modified in making these changes.
+
+### Task 16
+
+So far we've looked at the Stategy Pattern and the Observer Pattern.  Now that you have reviewed the code see if you can recognise where Design Patterns have been used.
+
+  * Which interface, classes, and methods in our game correlate to the elements of the Strategy Pattern:
+    * ![Strategy Pattern Diagram](doc/StrategyPattern.png) ?
+  * Which interface, classes, and methods in our game correlate to the elements of the Obserbver Pattern:
+    * ![Strategy Pattern Diagram](doc/ObserverPattern.png) ?
+
+## Week 8 Application Exercise
+
+Last week we asked you to identify where design patterns had been implemented.  This week's exercise asks you to identify an opportunity for refactoring using a design pattern and for you and your group to implement that refactoring.
+
+### Task 17
+
+The changes made to `Stage` last week included a declaration that was suggestive of the State Pattern:
+
+```java
+enum State {ChoosingActor, SelectingNewLocation, BotMoving}
+```
+
+Discuss the following questions with your group:
+
+* Does a code component need to be implemented precisely according to the textbook definition to be called a design pattern?
+  * If not, how much of the textbook definition needs to be implemented for you to label something as a particular pattern?
+  * For example, in last week's refactoring if we had left out `BotMover` would we have still implemented the Strategy Pattern, or
+  * If we'd left out one or both of `Beat` and `Pulse` would we have implemented the Observer Pattern?
+
+* How much is enough?  Do the various parts of `Stage` that make use of `enum State` already constitute the State Pattern?
+
+### Task 18
+
+Can you modify `Stage` to fully implement the State Pattern?
+
+![State Pattern Diagram](doc/StatePattern.png)
+
+Hint: you will need to refactor parts of the existing codebase into some new classes and adjust the existing `Stage` class.  Divide the task up so that each member of your group will work on a class each.
+
+## Week 9 Application Exercise
+
+In a similar vein to week 7, this week we would like you to look at the state of the program but this time we would like you to diagram the overall architecture and then analyse further opportunities for refactoring through the prism of Behaviour Parametrisation.
+
+### Task 19
+
+With this implementation of the State Pattern now added, draw a new picture of the inheritance hierarchy you have created.  You should (loosely) use [UML notation](http://umich.edu/~eecs381/handouts/UMLNotationSummary.pdf) for your diagram in the same way that you did for Task 9.
+
+### Task 20
+
+Compare your diagram to the one you made for Task 9.  Reflecting upon what techniques you've learned in the intervening weeks, describe what has changed since Task 9 (ie. compare the two diagrams using the language of Design Patterns and Behaviour Parametrisation).
+
+### Task 21
+
+Describe what further changes could you make so as to parametrise behaviour that exists in the application.  Again, describe these using the language of Design Patterns and Behaviour Parametrisation.

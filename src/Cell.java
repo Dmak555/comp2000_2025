@@ -16,18 +16,31 @@ public class Cell extends Rectangle {
     row = inRow;
   }
 
-  public void setTerrain(Terrain t){
-    this.terrain = t;
-  }
-  public Terrain getTerrain(){
-    return terrain;
-  }
-
-  public void paint(Graphics g,Point mousePos){
-  g.setColor(terrain.fill);
-  g.fillRect(x, y, width,height);
-  g.setColor(java.awt.Color.GRAY);
-  g.drawRect(x, y, width,height);
+  public void paint(Graphics g, Point mousePos) {
+    if(contains(mousePos)) {
+      g.setColor(Color.GRAY);
+    } else {
+      g.setColor(Color.WHITE);
+    }
+    g.fillRect(x, y, size, size);
+    g.setColor(Color.BLACK);
+    g.drawRect(x, y, size, size);
   }
 
+  @Override
+  public boolean contains(Point p) {
+    if(p != null) {
+      return super.contains(p);
+    } else {
+      return false;
+    }
+  }
+
+  public int leftOfComparison(Cell c) {
+    return Integer.compare(col, c.col);
+  }
+
+  public int aboveComparison(Cell c) {
+    return Integer.compare(row, c.row);
+  }
 }
