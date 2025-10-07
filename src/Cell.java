@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,7 +9,7 @@ public class Cell extends Rectangle {
   char col;
   int row;
 
-  private Terrain terrain = Terrain.GRASS;
+ // private Terrain terrain = Terrain.GRASS;
 
   public Cell(char inCol, int inRow, int x, int y){
     super(x, y, size, size);
